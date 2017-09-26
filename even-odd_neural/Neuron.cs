@@ -20,7 +20,7 @@ namespace EvenOddPerseptron
 			for (int i = 0; i < 12; i++)
 				w[i] = r.Next(-10, 10);
 
-			theta = r.Next(100);
+			theta = r.Next(20);
 			Generation = 0;
 		}
 

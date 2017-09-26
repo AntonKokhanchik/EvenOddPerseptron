@@ -45,6 +45,8 @@
 			this.textBoxPicture = new System.Windows.Forms.MaskedTextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.buttonReact = new System.Windows.Forms.Button();
+			this.buttonNo = new System.Windows.Forms.Button();
+			this.buttonAutoLearning = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// button1
@@ -150,7 +152,7 @@
 			// labelAnswer
 			// 
 			this.labelAnswer.AutoSize = true;
-			this.labelAnswer.Location = new System.Drawing.Point(218, 145);
+			this.labelAnswer.Location = new System.Drawing.Point(214, 105);
 			this.labelAnswer.Name = "labelAnswer";
 			this.labelAnswer.Size = new System.Drawing.Size(37, 13);
 			this.labelAnswer.TabIndex = 1;
@@ -159,7 +161,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(169, 145);
+			this.label1.Location = new System.Drawing.Point(168, 105);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(40, 13);
 			this.label1.TabIndex = 1;
@@ -170,14 +172,14 @@
 			this.label2.AutoSize = true;
 			this.label2.Location = new System.Drawing.Point(9, 9);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(154, 13);
+			this.label2.Size = new System.Drawing.Size(95, 13);
 			this.label2.TabIndex = 1;
-			this.label2.Text = "Обучение завершено, шагов:";
+			this.label2.Text = "Обучение, шагов:";
 			// 
 			// labelGenerations
 			// 
 			this.labelGenerations.AutoSize = true;
-			this.labelGenerations.Location = new System.Drawing.Point(169, 9);
+			this.labelGenerations.Location = new System.Drawing.Point(110, 9);
 			this.labelGenerations.Name = "labelGenerations";
 			this.labelGenerations.Size = new System.Drawing.Size(13, 13);
 			this.labelGenerations.TabIndex = 1;
@@ -185,16 +187,17 @@
 			// 
 			// textBoxPicture
 			// 
-			this.textBoxPicture.Location = new System.Drawing.Point(172, 49);
+			this.textBoxPicture.Location = new System.Drawing.Point(171, 52);
 			this.textBoxPicture.Mask = "000 000 000 000";
 			this.textBoxPicture.Name = "textBoxPicture";
 			this.textBoxPicture.Size = new System.Drawing.Size(90, 20);
 			this.textBoxPicture.TabIndex = 3;
+			this.textBoxPicture.TextChanged += new System.EventHandler(this.textBoxPicture_TextChanged);
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(169, 33);
+			this.label3.Location = new System.Drawing.Point(168, 36);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(89, 13);
 			this.label3.TabIndex = 1;
@@ -202,20 +205,44 @@
 			// 
 			// buttonReact
 			// 
-			this.buttonReact.Location = new System.Drawing.Point(172, 90);
+			this.buttonReact.Enabled = false;
+			this.buttonReact.Location = new System.Drawing.Point(171, 78);
 			this.buttonReact.Name = "buttonReact";
-			this.buttonReact.Size = new System.Drawing.Size(75, 23);
+			this.buttonReact.Size = new System.Drawing.Size(86, 23);
 			this.buttonReact.TabIndex = 2;
 			this.buttonReact.Text = "Проверить";
 			this.buttonReact.UseVisualStyleBackColor = true;
 			this.buttonReact.Click += new System.EventHandler(this.buttonReact_Click);
 			// 
+			// buttonNo
+			// 
+			this.buttonNo.Enabled = false;
+			this.buttonNo.Location = new System.Drawing.Point(171, 132);
+			this.buttonNo.Name = "buttonNo";
+			this.buttonNo.Size = new System.Drawing.Size(86, 23);
+			this.buttonNo.TabIndex = 2;
+			this.buttonNo.Text = "Неверно!";
+			this.buttonNo.UseVisualStyleBackColor = true;
+			this.buttonNo.Click += new System.EventHandler(this.buttonNo_Click);
+			// 
+			// buttonAutoLearning
+			// 
+			this.buttonAutoLearning.Location = new System.Drawing.Point(171, 4);
+			this.buttonAutoLearning.Name = "buttonAutoLearning";
+			this.buttonAutoLearning.Size = new System.Drawing.Size(86, 23);
+			this.buttonAutoLearning.TabIndex = 2;
+			this.buttonAutoLearning.Text = "Автообучение";
+			this.buttonAutoLearning.UseVisualStyleBackColor = true;
+			this.buttonAutoLearning.Click += new System.EventHandler(this.buttonAutoLearning_Click);
+			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(288, 186);
+			this.ClientSize = new System.Drawing.Size(283, 186);
 			this.Controls.Add(this.textBoxPicture);
+			this.Controls.Add(this.buttonNo);
+			this.Controls.Add(this.buttonAutoLearning);
 			this.Controls.Add(this.buttonReact);
 			this.Controls.Add(this.labelGenerations);
 			this.Controls.Add(this.label2);
@@ -258,6 +285,8 @@
 		private System.Windows.Forms.MaskedTextBox textBoxPicture;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Button buttonReact;
+		private System.Windows.Forms.Button buttonNo;
+		private System.Windows.Forms.Button buttonAutoLearning;
 	}
 }
 

@@ -11,18 +11,23 @@ using System.Windows.Forms;
 namespace EvenOddPerseptron
 {
 
-	// TODO: мониторинг обучения, вид словаря
+	// TODO: вид словаря
 	public partial class FormMain : Form
 	{
 		private Dictionary<int, string> dictionary;
-		Neuron neuron;
+		private Neuron neuron;
+		private string lastPicture;
+		private int lastAnswer;
 
 		public FormMain()
 		{
 			InitializeComponent();
+
 			FillDictionary();
 			neuron = new Neuron();
-			Hebb();
+			lastPicture = "000000000000";
+			lastAnswer = 0;
+			labelAnswer.Text = "";
 		}
 
 		private void FillDictionary()
@@ -42,60 +47,117 @@ namespace EvenOddPerseptron
 
 		private void button0_Click(object sender, EventArgs e)
 		{
-			textBoxPicture.Text = dictionary[0];
+			ClickEvent(0);
 		}
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			textBoxPicture.Text = dictionary[1];
+			ClickEvent(1);
 		}
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			textBoxPicture.Text = dictionary[2];
+			ClickEvent(2);
 		}
 
 		private void button3_Click(object sender, EventArgs e)
 		{
-			textBoxPicture.Text = dictionary[3];
+			ClickEvent(3);
 		}
 
 		private void button4_Click(object sender, EventArgs e)
 		{
-			textBoxPicture.Text = dictionary[4];
+			ClickEvent(4);
 		}
 
 		private void button5_Click(object sender, EventArgs e)
 		{
-			textBoxPicture.Text = dictionary[5];
+			ClickEvent(5);
 		}
 
 		private void button6_Click(object sender, EventArgs e)
 		{
-			textBoxPicture.Text = dictionary[6];
+			ClickEvent(6);
 		}
 
 		private void button7_Click(object sender, EventArgs e)
 		{
-			textBoxPicture.Text = dictionary[7];
+			ClickEvent(7);
 		}
 
 		private void button8_Click(object sender, EventArgs e)
 		{
-			textBoxPicture.Text = dictionary[8];
+			ClickEvent(8);
 		}
 
 		private void button9_Click(object sender, EventArgs e)
 		{
-			textBoxPicture.Text = dictionary[9];
+			ClickEvent(9);
 		}
 
-		private void Answer(int n)
+		private void ClickEvent(int i)
 		{
-			if (neuron.React(dictionary[n]) == 1)
+			textBoxPicture.Text = dictionary[i];
+			labelAnswer.Text = "";
+			buttonReact.Enabled = true;
+			buttonNo.Enabled = false;
+		}
+
+		private void buttonReact_Click(object sender, EventArgs e)
+		{
+			string picture = UnmaskedPicture(textBoxPicture.Text);
+
+			if ((lastAnswer = neuron.React(picture)) == 1)
 				labelAnswer.Text = "Нечётное";
 			else
 				labelAnswer.Text = "Чётное";
+
+			lastPicture = picture;
+			buttonNo.Enabled = true;
+		}
+
+		private void buttonAutoLearning_Click(object sender, EventArgs e)
+		{
+			Hebb();
+			labelGenerations.Text = neuron.Generation.ToString();
+		}
+
+		private void buttonNo_Click(object sender, EventArgs e)
+		{
+			if (lastAnswer == 0)
+				neuron.Learn(1, lastPicture);
+			else
+				neuron.Learn(-1, lastPicture);
+
+			labelGenerations.Text = neuron.Generation.ToString();
+			labelAnswer.Text = "";
+
+			buttonNo.Enabled = false;
+		}
+
+		private void textBoxPicture_TextChanged(object sender, EventArgs e)
+		{
+			labelAnswer.Text = "";
+
+			if (UnmaskedPicture(textBoxPicture.Text).Length == 12)
+				buttonReact.Enabled = true;
+			else
+				buttonReact.Enabled = false;
+
+			buttonNo.Enabled = false;
+		}
+
+		private string UnmaskedPicture(string maskedPicture)
+		{
+			string picture = "";
+			for (int i = 0; i < maskedPicture.Length; i++)
+			{
+				if (maskedPicture[i] == '0')
+					picture += '0';
+				else if (Char.IsDigit(maskedPicture[i]))
+					picture += '1';
+			}
+			return picture;
 		}
 
 		private void Hebb()
@@ -119,26 +181,6 @@ namespace EvenOddPerseptron
 					}
 				}
 			}
-			labelGenerations.Text = neuron.Generation.ToString();
-		}
-
-		private void buttonReact_Click(object sender, EventArgs e)
-		{
-			string s = textBoxPicture.Text;
-			string picture = "";
-			for(int i=0; i<s.Length; i++)
-			{
-				if (s[i] == '0')
-					picture += '0';
-				else if (Char.IsDigit(s[i]))
-					picture += '1';
-			}
-
-			if (neuron.React(picture) == 1)
-				labelAnswer.Text = "Нечётное";
-			else
-				labelAnswer.Text = "Чётное";
-
 		}
 	}
 }
